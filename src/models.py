@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer
 
-from .db import Base
+from core.db import Base
 
 
 class AvitoRequest(Base):
