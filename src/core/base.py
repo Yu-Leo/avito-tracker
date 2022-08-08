@@ -1,2 +1,2 @@
 from .db import Base
-from .models import AvitoRequest
+from ..models import AvitoRequest
