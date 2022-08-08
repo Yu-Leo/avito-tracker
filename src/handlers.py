@@ -12,4 +12,10 @@ router = APIRouter()
 def add_avito_request(item: AvitoRequestCreate, db: Session = Depends(get_db)):
     avito_request = crud.create_avito_request(db, item)
     request_value = crud.create_request_value(db, avito_request)
-    return {"id": avito_request.id}
+    return {'id': avito_request.id}
+
+
+@router.get('/stat')
+def get_request_values(id: int, start: str, end: str, db: Session = Depends(get_db)):
+    request_values = crud.get_request_values(db, id, start, end)
+    return {'counters': request_values}
