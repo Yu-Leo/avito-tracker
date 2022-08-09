@@ -27,5 +27,5 @@ app.include_router(router)
 
 if __name__ == "__main__":
     thr = threading.Thread(target=crud.regular_parse, args=(10,), name='thr-1', daemon=True)
-    thr.start()
+    # thr.start()
     uvicorn.run(app, host="127.0.0.1", port=8000)

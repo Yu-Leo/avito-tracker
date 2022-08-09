@@ -45,6 +45,12 @@ def get_avito_requests(db: Session) -> list:
     return request_values
 
 
-def get_request_values(db: Session, id: int, start: str, end: str) -> list:
-    request_values = list(db.query(RequestValues).filter(RequestValues.avito_request_id == id))
-    return request_values
+def get_request_values(db: Session, id: int, start: str | None, end: str | None) -> list:
+    request_values = db.query(RequestValues).filter(RequestValues.avito_request_id == id)
+    if start is not None:
+        start_datetime = datetime.datetime.fromisoformat(start)
+        request_values = request_values.filter(RequestValues.datetime >= start_datetime)
+    if end is not None:
+        end_datetime = datetime.datetime.fromisoformat(end)
+        request_values = request_values.filter(RequestValues.datetime <= end_datetime)
+    return list(request_values)
