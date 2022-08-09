@@ -18,6 +18,6 @@ def add_avito_request(item: AvitoRequestCreate, db: Session = Depends(get_db)):
 
 
 @router.get('/stat')
-def get_request_values(id: int, start: str, end: str, db: Session = Depends(get_db)):
+def get_request_values(id: int, start: str = None, end: str = None, db: Session = Depends(get_db)):
     request_values = crud.get_request_values(db, id, start, end)
     return {'counters': request_values}
