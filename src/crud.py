@@ -3,10 +3,10 @@ import time
 
 from sqlalchemy.orm import Session
 
+import parser
 from core.db import SessionLocal
 from models import AvitoRequest, RequestValues
 from schemas import AvitoRequestCreate
-import parser
 
 
 def create_avito_request(db: Session, item: AvitoRequestCreate) -> AvitoRequest:
@@ -53,4 +53,4 @@ def get_request_values(db: Session, id: int, start: str | None, end: str | None)
     if end is not None:
         end_datetime = datetime.datetime.fromisoformat(end)
         request_values = request_values.filter(RequestValues.datetime <= end_datetime)
-    return list(request_values)
+    return request_values.all()
