@@ -19,7 +19,7 @@ def create_avito_request(db: Session, item: AvitoRequestCreate) -> AvitoRequest:
 
 def create_request_value(db: Session, item: AvitoRequest) -> RequestValues:
     request_value = RequestValues(avito_request_id=item.id,
-                                  datetime=datetime.datetime.now(),
+                                  timestamp=datetime.datetime.now(),
                                   value=parser.get_number_of_ads(item.text, item.region))
     db.add(request_value)
     db.commit()
@@ -49,8 +49,8 @@ def get_request_values(db: Session, id: int, start: str | None, end: str | None)
     request_values = db.query(RequestValues).filter(RequestValues.avito_request_id == id)
     if start is not None:
         start_datetime = datetime.datetime.fromisoformat(start)
-        request_values = request_values.filter(RequestValues.datetime >= start_datetime)
+        request_values = request_values.filter(RequestValues.timestamp >= start_datetime)
     if end is not None:
         end_datetime = datetime.datetime.fromisoformat(end)
-        request_values = request_values.filter(RequestValues.datetime <= end_datetime)
+        request_values = request_values.filter(RequestValues.timestamp <= end_datetime)
     return request_values.all()
