@@ -30,12 +30,14 @@ def create_request_value(db: Session, item: AvitoRequest) -> RequestValues:
 def regular_parse(t: int):
     while True:
         db = SessionLocal()
+        start_time = time.time()
         items = get_avito_requests(db)
         for item in items:
             create_request_value(db, item)
         db.close()
-
-        time.sleep(t)
+        finish_time = time.time()
+        time_delta = finish_time - start_time
+        time.sleep(t - time_delta)
 
 
 def get_avito_requests(db: Session) -> list:
