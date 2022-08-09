@@ -3,6 +3,7 @@ import datetime
 from sqlalchemy.orm import Session
 from models import AvitoRequest, RequestValues
 from schemas import AvitoRequestCreate
+import parser
 
 
 def create_avito_request(db: Session, item: AvitoRequestCreate) -> AvitoRequest:
@@ -16,7 +17,7 @@ def create_avito_request(db: Session, item: AvitoRequestCreate) -> AvitoRequest:
 def create_request_value(db: Session, item: AvitoRequest) -> RequestValues:
     request_value = RequestValues(avito_request_id=item.id,
                                   datetime=datetime.datetime.now(),
-                                  value=1)
+                                  value=parser.get_number_of_ads(item.text, item.region))
     db.add(request_value)
     db.commit()
     db.refresh(request_value)
