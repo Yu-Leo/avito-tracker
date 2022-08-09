@@ -10,8 +10,8 @@ def _get_int(number: str) -> int:
     return int(result)
 
 
-def get_number_of_ads(text: str, region: str) -> int:
-    url = f"https://www.avito.ru/{region}?q={text}"
+def get_number_of_ads(query: str, region: str) -> int:
+    url = f"https://www.avito.ru/{region}?q={query}"
     q = requests.get(url)
     content = q.content
     soup = BeautifulSoup(content, 'lxml')

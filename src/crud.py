@@ -20,7 +20,7 @@ def create_avito_request(db: Session, item: AvitoRequestCreate) -> AvitoRequest:
 def create_request_value(db: Session, item: AvitoRequest) -> RequestValues:
     request_value = RequestValues(avito_request_id=item.id,
                                   timestamp=datetime.datetime.now(),
-                                  value=parser.get_number_of_ads(item.text, item.region))
+                                  value=parser.get_number_of_ads(item.query, item.region))
     db.add(request_value)
     db.commit()
     db.refresh(request_value)

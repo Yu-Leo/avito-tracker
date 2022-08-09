@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class AvitoRequestBase(BaseModel):
-    text: str
+    query: str
     region: str
 
     class Config:
