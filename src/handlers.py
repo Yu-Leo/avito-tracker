@@ -1,3 +1,5 @@
+import threading
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -11,7 +13,7 @@ router = APIRouter()
 @router.post('/add')
 def add_avito_request(item: AvitoRequestCreate, db: Session = Depends(get_db)):
     avito_request = crud.create_avito_request(db, item)
-    request_value = crud.create_request_value(db, avito_request)
+    crud.create_request_value(db, avito_request)
     return {'id': avito_request.id}
 
 

@@ -1,6 +1,9 @@
 import datetime
+import time
 
 from sqlalchemy.orm import Session
+
+from core.db import SessionLocal
 from models import AvitoRequest, RequestValues
 from schemas import AvitoRequestCreate
 import parser
@@ -22,6 +25,22 @@ def create_request_value(db: Session, item: AvitoRequest) -> RequestValues:
     db.commit()
     db.refresh(request_value)
     return request_value
+
+
+def regular_parse(t: int):
+    while True:
+        db = SessionLocal()
+        items = get_avito_requests(db)
+        for item in items:
+            create_request_value(db, item)
+        db.close()
+
+        time.sleep(t)
+
+
+def get_avito_requests(db: Session) -> list:
+    request_values = list(db.query(AvitoRequest).all())
+    return request_values
 
 
 def get_request_values(db: Session, id: int, start: str, end: str) -> list:
