@@ -20,7 +20,7 @@ def convert_datetime_to_iso_8601_without_microseconds(dt: datetime.datetime) -> 
 
 
 class RequestValuesBase(BaseModel):
-    datetime: datetime.datetime
+    timestamp: datetime.datetime
     value: str
 
     class Config:

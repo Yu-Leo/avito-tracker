@@ -16,5 +16,5 @@ class RequestValues(Base):
 
     id = Column(Integer, primary_key=True, index=True, unique=True)
     avito_request_id = Column(Integer, ForeignKey("avito_requests.id"))
-    datetime = Column(DateTime)
+    timestamp = Column(DateTime)
     value = Column(Integer)
