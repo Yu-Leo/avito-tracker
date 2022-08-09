@@ -1,11 +1,11 @@
-import threading
+from typing import List, Dict
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 import crud
 from core.utils import get_db
-from schemas import AvitoRequestCreate
+from schemas import AvitoRequestCreate, RequestValuesBase
 
 router = APIRouter()
 
@@ -17,7 +17,7 @@ def add_avito_request(item: AvitoRequestCreate, db: Session = Depends(get_db)):
     return {'id': avito_request.id}
 
 
-@router.get('/stat')
+@router.get('/stat', response_model=Dict[str, List[RequestValuesBase]])
 def get_request_values(id: int, start: str = None, end: str = None, db: Session = Depends(get_db)):
     request_values = crud.get_request_values(db, id, start, end)
-    return {'counters': request_values}
+    return {'values': request_values}
