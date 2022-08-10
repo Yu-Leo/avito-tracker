@@ -3,7 +3,7 @@ import datetime
 from pydantic import BaseModel
 
 
-class AvitoRequestBase(BaseModel):
+class AvitoQueryBase(BaseModel):
     query: str
     region: str
 
@@ -11,7 +11,7 @@ class AvitoRequestBase(BaseModel):
         orm_mode = True
 
 
-class AvitoRequestCreate(AvitoRequestBase):
+class AvitoQueryCreate(AvitoQueryBase):
     pass
 
 
@@ -19,7 +19,7 @@ def convert_datetime_to_iso_8601_without_microseconds(dt: datetime.datetime) -> 
     return dt.strftime('%Y-%m-%dT%H:%M:%S')
 
 
-class RequestValuesBase(BaseModel):
+class AvitoQueryValueBase(BaseModel):
     timestamp: datetime.datetime
     value: str
 
@@ -29,3 +29,7 @@ class RequestValuesBase(BaseModel):
         json_encoders = {
             datetime.datetime: convert_datetime_to_iso_8601_without_microseconds
         }
+
+
+class AvitoQueryValueCreate(AvitoQueryValueBase):
+    avito_query_id: int
