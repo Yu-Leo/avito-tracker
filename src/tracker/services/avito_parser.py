@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 from fastapi import HTTPException, status
 
 from tracker.exceptions import AvitoQueryError
-from tracker.schemas import AvitoQueryCreate
 
 
 def catch_parser_exceptions(func):
@@ -35,20 +34,11 @@ def get_number_of_ads(query: str, region: str) -> int:
     return _get_int(number)
 
 
-def is_avito_query_correct(item: AvitoQueryCreate) -> bool:
-    try:
-        get_number_of_ads(item.query, item.region)
-    except AvitoQueryError:
-        return False
-    else:
-        return True
-
-
 def _get_page_content(query: str, region: str) -> bytes:
     """
     Send request to avito.ru using 'query' and 'region' and returns page content
     """
-    url = f"https://www.avito.ru/{region}?q={query}"
+    url = f'https://www.avito.ru/{region}?q={query}'
     query = requests.get(url)
     content = query.content
     return content
