@@ -2,8 +2,9 @@ import datetime
 from typing import Optional
 
 from fastapi import HTTPException, status
+from loguru import logger
 
-from tracker.exceptions import AvitoQueryError
+from tracker.exceptions import AvitoQueryError, ParserError
 from tracker.schemas import AvitoQueryCreate
 from tracker.services.avito_parser import get_number_of_ads
 
@@ -26,19 +27,18 @@ def check_start_and_end_datetime(start: Optional[str] = None, end: Optional[str]
 
 
 def check_avito_query(avito_query: AvitoQueryCreate):
-    if not _is_avito_query_correct(avito_query):
+    try:
+        get_number_of_ads(avito_query.query, avito_query.region)
+    except AvitoQueryError as error:
+        logger.warning(error)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail='Invalid value in the \'query\' or \'region\' field (for avito.ru)')
-
-
-def _is_avito_query_correct(item: AvitoQueryCreate) -> bool:
-    try:
-        get_number_of_ads(item.query, item.region)
-    except AvitoQueryError:
-        return False
-    else:
-        return True
+            detail=str(error))
+    except ParserError as error:
+        logger.error(error)
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(error))
 
 
 def _is_datetime_correct(dt: Optional[str]) -> bool:
