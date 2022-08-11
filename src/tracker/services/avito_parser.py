@@ -1,7 +1,30 @@
+import functools
+
 import requests
 from bs4 import BeautifulSoup
+from fastapi import HTTPException, status
+
+from tracker.exceptions import AvitoQueryError
+from tracker.schemas import AvitoQueryCreate
 
 
+def catch_parser_exceptions(func):
+    @functools.wraps(func)
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except AttributeError:
+            raise AvitoQueryError()
+        except Exception:
+            # Logs
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail='avito.ru unavailable')
+
+    return inner
+
+
+@catch_parser_exceptions
 def get_number_of_ads(query: str, region: str) -> int:
     """
     Get number of ads on avito.ru by 'query' in 'region'
@@ -10,6 +33,15 @@ def get_number_of_ads(query: str, region: str) -> int:
     page = BeautifulSoup(raw_content, 'lxml')
     number = page.find(class_='page-title-count-wQ7pG').text
     return _get_int(number)
+
+
+def is_avito_query_correct(item: AvitoQueryCreate) -> bool:
+    try:
+        get_number_of_ads(item.query, item.region)
+    except AvitoQueryError:
+        return False
+    else:
+        return True
 
 
 def _get_page_content(query: str, region: str) -> bytes:
