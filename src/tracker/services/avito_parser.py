@@ -2,9 +2,9 @@ import functools
 
 import requests
 from bs4 import BeautifulSoup
-from fastapi import HTTPException, status
+from loguru import logger
 
-from tracker.exceptions import AvitoQueryError
+from tracker.exceptions import AvitoQueryError, ParserError
 
 
 def catch_parser_exceptions(func):
@@ -14,11 +14,9 @@ def catch_parser_exceptions(func):
             return func(*args, **kwargs)
         except AttributeError:
             raise AvitoQueryError()
-        except Exception:
-            # Logs
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail='avito.ru unavailable')
+        except Exception as error:
+            logger.error(error)
+            raise ParserError()
 
     return inner
 
