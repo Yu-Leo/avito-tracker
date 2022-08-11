@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     SERVER_HOST: str = '127.0.0.1'
     SERVER_PORT: int = 8000
 
-    REQUESTS_PERIOD: int = 60 * 60  # In seconds
+    REQUESTS_PERIOD: int = 10  # In seconds
 
     class Config:
         env_file = '../../.env'

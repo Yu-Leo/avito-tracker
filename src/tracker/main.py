@@ -16,4 +16,6 @@ if __name__ == "__main__":
                                               name='periodic_parser_thread',
                                               daemon=True)
     periodic_parser_thread.start()
-    uvicorn.run(app, host=settings.SERVER_HOST, port=settings.SERVER_PORT)
+    uvicorn.run(app,
+                host=settings.SERVER_HOST,
+                port=settings.SERVER_PORT, )
