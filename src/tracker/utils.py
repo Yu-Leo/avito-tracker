@@ -37,7 +37,7 @@ def check_avito_query(avito_query: AvitoQueryCreate):
     except ParserError as error:
         logger.error(error)
         raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            status_code=status.HTTP_502_BAD_GATEWAY,
             detail=str(error))
 
 
