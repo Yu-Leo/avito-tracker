@@ -1,6 +1,8 @@
 """
 File with application settings
 """
+import os
+
 from pydantic import BaseSettings
 
 
@@ -15,7 +17,8 @@ class Settings(BaseSettings):
     REQUESTS_PERIOD: int = 10  # Value in seconds
 
     class Config:
-        env_file = '../../.env'
+        root_dir: str = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+        env_file = os.path.join(root_dir, '.env')
         env_file_encoding = 'utf-8'
 
 

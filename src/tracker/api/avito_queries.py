@@ -14,6 +14,11 @@ from tracker.services.avito_queries import AvitoQueryService, AvitoQueryValueSer
 router = APIRouter()
 
 
+@router.get("/")
+def root():
+    return {"msg": "Hello World"}
+
+
 @router.post('/add')
 def add_avito_query(avito_query_data: AvitoQueryCreate,
                     avito_query_service: AvitoQueryService = Depends()):

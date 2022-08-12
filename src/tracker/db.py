@@ -4,7 +4,7 @@ File with database settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from settings import settings
+from tracker.settings import settings
 
 SQLALCHEMY_DATABASE_URL = \
     f'postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@localhost/{settings.POSTGRES_DB}'
