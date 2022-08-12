@@ -10,8 +10,8 @@ from loguru import logger
 from tracker.db import Session
 from tracker.exceptions import ParserError, DatabaseError
 from tracker.schemas import AvitoQueryValueCreate
-from .avito_parser import get_number_of_ads
-from .avito_queries import AvitoQueryService, AvitoQueryValueService
+from tracker.services.avito_parser import get_number_of_ads
+from tracker.services.avito_queries import AvitoQueryService, AvitoQueryValueService
 
 
 def create_session(func):

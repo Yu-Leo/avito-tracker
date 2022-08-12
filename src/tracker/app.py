@@ -3,7 +3,7 @@ File with FastAPI application
 """
 from fastapi import FastAPI
 
-from api import router
+from tracker.api import router
 
 app = FastAPI()
 
