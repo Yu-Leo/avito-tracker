@@ -1,3 +1,6 @@
+"""
+Main application file
+"""
 import os
 import sys
 import threading

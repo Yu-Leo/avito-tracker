@@ -1,3 +1,6 @@
+"""
+File with services for working with AvitoQuery and AvitoQueryValue objects
+"""
 import datetime
 import functools
 from typing import List, Optional
@@ -26,7 +29,11 @@ def catch_sqlalchemy_exceptions(func):
 
 
 class AvitoQueryService():
-    def __init__(self, session: Session = Depends(get_session)):
+    """
+    Class for CRUD operations with AvitoQuery objects
+    """
+
+    def __init__(self, session: Session = Depends(get_session)) -> None:
         self.session = session
 
     @catch_sqlalchemy_exceptions
@@ -42,7 +49,11 @@ class AvitoQueryService():
 
 
 class AvitoQueryValueService():
-    def __init__(self, session: Session = Depends(get_session)):
+    """
+    Class for CRUD operations with AvitoQueryValue objects
+    """
+
+    def __init__(self, session: Session = Depends(get_session)) -> None:
         self.session = session
 
     @catch_sqlalchemy_exceptions

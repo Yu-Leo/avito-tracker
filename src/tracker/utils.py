@@ -1,3 +1,6 @@
+"""
+File with some application utilities
+"""
 import datetime
 from typing import Optional
 
@@ -10,6 +13,9 @@ from tracker.services.avito_parser import get_number_of_ads
 
 
 def check_start_and_end_datetime(start: Optional[str] = None, end: Optional[str] = None) -> None:
+    """
+    If the timestamps 'start' and 'end' are in an invalid format, raise an exception
+    """
     datetime_format = 'Datetime must be in ISO 8601 YYYY-MM-DDThh:mm:ss format (for example: 1985-10-26T01:18:00)'
     is_start_datetime_correct = _is_datetime_correct(start)
     is_end_datetime_correct = _is_datetime_correct(end)
@@ -27,9 +33,12 @@ def check_start_and_end_datetime(start: Optional[str] = None, end: Optional[str]
 
 
 def check_avito_query(avito_query: AvitoQueryCreate):
+    """
+    If the 'avito_query' object is incorrect for avito.ru, raise an exception
+    """
     try:
         get_number_of_ads(avito_query.query, avito_query.region)
-    except AvitoQueryError as error:
+    except AvitoQueryError as error:  # 'avito_query' object is incorrect for avito.ru
         logger.warning(error)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -41,11 +50,14 @@ def check_avito_query(avito_query: AvitoQueryCreate):
             detail=str(error))
 
 
-def _is_datetime_correct(dt: Optional[str]) -> bool:
-    if dt is None:
+def _is_datetime_correct(timestamp: Optional[str]) -> bool:
+    """
+    :return: True if 'dt' is a timestamp in ISO 8601 format, else False
+    """
+    if timestamp is None:
         return True
     try:
-        datetime.datetime.fromisoformat(dt)
+        datetime.datetime.fromisoformat(timestamp)
     except ValueError:
         return False
     else:

@@ -1,3 +1,6 @@
+"""
+File with Pydantic models (schemas)
+"""
 import datetime
 
 from pydantic import BaseModel

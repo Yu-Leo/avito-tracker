@@ -1,7 +1,11 @@
+"""
+File with ORM (SQLAlchemy) models
+"""
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
 
 class AvitoQuery(Base):
     __tablename__ = 'avito_queries'
