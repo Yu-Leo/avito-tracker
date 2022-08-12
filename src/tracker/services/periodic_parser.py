@@ -5,7 +5,7 @@ import time
 from loguru import logger
 
 from tracker.db import Session
-from tracker.exceptions import ParserError
+from tracker.exceptions import ParserError, DatabaseError
 from tracker.schemas import AvitoQueryValueCreate
 from .avito_parser import get_number_of_ads
 from .avito_queries import AvitoQueryService, AvitoQueryValueService
@@ -41,7 +41,7 @@ def periodic_parser(requests_period: int):
         start_time = time.time()
         try:
             _parse_and_save_data()
-        except ParserError as e:
+        except (ParserError, DatabaseError) as e:
             logger.error(e)
         finish_time = time.time()
         requests_execution_time = finish_time - start_time
