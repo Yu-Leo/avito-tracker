@@ -1,3 +1,8 @@
+"""
+File with custom exceptions
+"""
+
+
 class ParserError(Exception):
     def __str__(self):
         return 'Avito.ru parser error'

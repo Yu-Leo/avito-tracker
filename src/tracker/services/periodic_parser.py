@@ -1,3 +1,6 @@
+"""
+File with functions for periodically receiving information from avito.ru and saving it
+"""
 import datetime
 import functools
 import time
@@ -22,7 +25,7 @@ def create_session(func):
 
 
 @create_session
-def _parse_and_save_data(session: Session):
+def _parse_and_save_data(session: Session) -> None:
     avito_query_service = AvitoQueryService(session)
     avito_query_value_service = AvitoQueryValueService(session)
 
@@ -36,7 +39,7 @@ def _parse_and_save_data(session: Session):
         avito_query_value_service.create(avito_query_value)
 
 
-def periodic_parser(requests_period: int):
+def periodic_parser(requests_period: int) -> None:
     while True:
         start_time = time.time()
         try:

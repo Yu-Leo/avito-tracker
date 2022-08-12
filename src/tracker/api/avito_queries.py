@@ -1,3 +1,6 @@
+"""
+File with handlers for working with AvitoQuery and AvitoQueryValue objects
+"""
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status

@@ -1,3 +1,6 @@
+"""
+File with functions for sending requests to avito.ru and analyze the information received
+"""
 import functools
 
 import requests
