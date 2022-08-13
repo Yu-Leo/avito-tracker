@@ -12,11 +12,15 @@ PAGES_CONTENT_DIR = 'tests/pages_content'  # Path to folder with pages content f
 @pytest.mark.skip(reason="too long...")
 class TestWithRealService:
     def test_get_number_of_ads_with_correct_values(self):
+        # Act
         result = get_number_of_ads('book', 'moskva')
+
+        # Assert
         assert isinstance(result, int)
         assert result > 0
 
     def test_get_number_of_ads_with_incorrect_values(self):
+        # Act & assert
         with pytest.raises(AvitoQueryError):
             get_number_of_ads('book', '123')
 
@@ -34,18 +38,25 @@ def get_test_queries_from_dir():
 class TestWithMockedService:
     @pytest.mark.parametrize('query, region', get_test_queries_from_dir())
     def test_get_number_of_ads_with_correct_values(self, query, region):
+        # Arrange
         with open(f'tests/pages_content/{query}_{region}.txt', 'rb') as file:
             page_content = file.read()
         with requests_mock.Mocker() as mock:
             mock.get(f'https://www.avito.ru/{region}?q={query}', content=page_content)
+
+            # Act
             result = get_number_of_ads(query, region)
+
+            # Assert
             assert isinstance(result, int)
             assert result > 0
 
     @pytest.mark.parametrize('query, region', [('123', '123')])
     def test_get_number_of_ads_with_incorrect_values(self, query, region):
+        # Arrange
         with open(f'tests/pages_content/incorrect_query_0.txt', 'rb') as file:
             page_content = file.read()
+        # Act & assert
         with requests_mock.Mocker() as mock:
             mock.get(f'https://www.avito.ru/{region}?q={query}', content=page_content)
             with pytest.raises(AvitoQueryError):
