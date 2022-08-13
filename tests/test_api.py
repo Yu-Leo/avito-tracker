@@ -1,11 +1,8 @@
-from fastapi.testclient import TestClient
-
-from tracker.app import app
-
-client = TestClient(app)
+import pytest
 
 
-def test_read_main():
-    response = client.get('/')
+@pytest.mark.parametrize('data', [{'query': 'book',
+                                   'region': 'moskva'}])
+def test_add(data, client):
+    response = client.post('/add', json=data)
     assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}

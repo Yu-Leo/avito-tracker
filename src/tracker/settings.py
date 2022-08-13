@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     SERVER_HOST: str = '127.0.0.1'
     SERVER_PORT: int = 8000
 
-    REQUESTS_PERIOD: int = 10  # Value in seconds
+    REQUESTS_PERIOD: int = 60 * 60  # Value in seconds
 
     class Config:
         root_dir: str = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
