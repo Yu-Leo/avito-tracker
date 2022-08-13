@@ -53,7 +53,7 @@ class TestAvitoQueryValueService:
                                                             (1, '2022-08-13 00:00:00', None),
                                                             (1, '2022-08-12 00:00:00', '2022-08-14 00:00:00'),
                                                             (2, None, None), ])
-    def test_get_by_avito_query_id(self, avito_query_id, start, end, session, avito_query_values_list):
+    def test_get_by_avito_query_id(self, avito_query_id, start, end, session, add_avito_query_values):
         # Arrange
         avito_query_value_service = AvitoQueryValueService(session)
 

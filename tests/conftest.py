@@ -55,7 +55,7 @@ def avito_queries_list(session):
 
 
 @pytest.fixture
-def avito_query_values_list(session):
+def add_avito_query_values(session):
     session.add(models.AvitoQueryValue(**AvitoQueryValueCreate(
         avito_query_id=1,
         timestamp=datetime.datetime(2022, 8, 13, 0, 0, 0, 0),
