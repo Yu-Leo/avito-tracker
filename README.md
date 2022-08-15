@@ -31,22 +31,7 @@ A service that allows you to monitor changes in the number of ads in Avito for a
 
 <a id="chapter-2"></a>
 
-## :hammer: Getting started
-
-1. Download this repository
-    * Option 1
-        1. Install [git](https://git-scm.com/download)
-        2. Clone this repository
-        ```bash
-        git clone https://github.com/Yu-Leo/avito-tracker.git
-        cd avito-tracker
-        ```
-    * Option 2 - [Download ZIP](https://github.com/Yu-Leo/avito-tracker/archive/refs/heads/main.zip)
-2. Create `.env` file and set the values of the [required environment variables](#envvars)
-3. Run application using Docker compose
-    ```bash
-    docker-compose up --build
-    ```
+## :hammer: Getting started - [tutorial](./docs/getting_started.md)
 
 <a id="chapter-3"></a>
 
@@ -63,18 +48,6 @@ A service that allows you to monitor changes in the number of ads in Avito for a
     - **SQLAlchemy**
     - **Alembic**
     - **Loguru**
-- **Docker** and **Docker compose**
-
-### :wrench: Settings
-
-<a id="envvars"></a>
-
-#### Required environment variables:
-
-- Settings for DBMS (PostgreSQL):
-    - `POSTGRES_DB`
-    - `POSTGRES_USER`
-    - `POSTGRES_PASSWORD`
 
 ### :mag: Logging
 
@@ -88,6 +61,26 @@ Logs saving to the `./logs.log` file.
 
 (Background on this error at: https://sqlalche.me/e/14/e3q8)
 2022-08-12T11:04:32.491789+0300 ERROR Error in working with the database
+```
+
+### :coffee: Tests
+
+Run all tests:
+
+```bash
+pytest tests/
+```
+
+With `coverage`:
+
+```bash
+pytest tests/ --cov=src/tracker 
+```
+
+With report page generation:
+
+```bash
+pytest tests/ --cov=src/tracker --cov-report=html 
 ```
 
 <a id="chapter-5"></a>
