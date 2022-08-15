@@ -35,7 +35,7 @@ Based on **[technical specification (RU)](./docs/technical_specification_ru.md)*
 
   _Example:_
 
-    - Send:
+    - Send **POST** `http://127.0.0.1:8000/add`
       ```json
       {
       "query": "book",
@@ -55,7 +55,7 @@ Based on **[technical specification (RU)](./docs/technical_specification_ru.md)*
 
   _Example:_
 
-    - Send: GET `http://127.0.0.1:8000/stat?avito_query_id=6&start=2022-08-12T00:00:00&end=2022-08-15T00:00:00`
+    - Send: **GET** `http://127.0.0.1:8000/stat?avito_query_id=6&start=2022-08-12T00:00:00&end=2022-08-15T00:00:00`
 
     - Get:
       ```json
@@ -101,7 +101,7 @@ Based on **[technical specification (RU)](./docs/technical_specification_ru.md)*
 
 Logs saving to the `./logs.log` file.
 
-**Example:**
+_Example:_
 
 ```
 2022-08-12T11:04:32.491389+0300 ERROR (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
