@@ -1,7 +1,5 @@
 # Technical documentation
 
-## :page_facing_up: Description
-
 ## :orange_book: Architecture
 
 ![Modules diagram](./modules_diagram.jpg)

@@ -23,7 +23,9 @@
 
 A service that allows you to monitor changes in the number of ads in Avito for a specific search query and region.
 
-**[Technical specification (RU)](./docs/technical_specification_ru.md)**
+Polling frequency = 1 time per hour for each id (search query and region).
+
+Based on **[technical specification (RU)](./docs/technical_specification_ru.md)**
 
 <a id="chapter-1"></a>
 
