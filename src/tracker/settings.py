@@ -7,9 +7,12 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
+    DB_HOST: str
+    DB_PORT: int
+
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_NAME: str
 
     SERVER_HOST: str = '127.0.0.1'
     SERVER_PORT: int = 8000
