@@ -1,12 +1,12 @@
 import os
+from typing import Tuple, List
 
 import pytest
 import requests_mock
 
+from conftest import PAGES_CONTENT_DIR
 from tracker.exceptions import AvitoQueryError
 from tracker.services.avito_parser import get_number_of_ads
-
-PAGES_CONTENT_DIR = 'tests/pages_content'  # Path to folder with pages content for tests
 
 
 @pytest.mark.skip(reason="too long...")
@@ -25,7 +25,11 @@ class TestWithRealService:
             get_number_of_ads('book', '123')
 
 
-def get_test_queries_from_dir():
+def get_test_queries_from_dir() -> List[Tuple[str, str]]:
+    """
+    Find all files with the format 'query_region.txt ' in PAGES_CONTENT_DIR.
+    :return: List with avito_queries in format ('query', 'region').
+    """
     test_files = [item for item in os.listdir(PAGES_CONTENT_DIR) if
                   os.path.isfile(os.path.join(PAGES_CONTENT_DIR, item))]
     result = []

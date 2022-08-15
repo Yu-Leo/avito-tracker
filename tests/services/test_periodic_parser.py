@@ -1,12 +1,13 @@
 import requests_mock
 
+from conftest import PAGES_CONTENT_DIR
 from tracker import models
 from tracker.services.periodic_parser import _parse_and_save_data
 
 
 def test__parse_and_save_data(session, add_real_avito_queries):
     # Arrange
-    with open(f'tests/pages_content/book_moskva.txt', 'rb') as file:
+    with open(f'{PAGES_CONTENT_DIR}/book_moskva.txt', 'rb') as file:
         page_content = file.read()
     with requests_mock.Mocker() as mock:
         mock.get(f'https://www.avito.ru/moskva?q=book', content=page_content)

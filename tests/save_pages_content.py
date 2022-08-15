@@ -1,3 +1,7 @@
+"""
+Script for getting pages content from avito.ru
+and save it to the files in 'pages_content' folder
+"""
 from typing import Optional
 
 import requests
