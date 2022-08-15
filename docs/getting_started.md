@@ -36,7 +36,14 @@
     ```bash
     docker-compose up
     ```   
-8. Run application
+
+8. Apply migrations
+    ```bash
+   cd src/tracker
+   alembic upgrade head
+   cd ../..
+    ```
+9. Run application
     ```bash
     python3 src/tracker/main.py
     ```
