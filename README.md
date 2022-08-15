@@ -12,7 +12,7 @@
 ## Navigation
 
 * [Project description](#chapter-0)
-* [Interface](#chapter-1)
+* [API](#chapter-1)
 * [Getting started](#chapter-2)
 * [Source code](#chapter-3)
 * [License](#chapter-5)
@@ -27,7 +27,53 @@ A service that allows you to monitor changes in the number of ads in Avito for a
 
 <a id="chapter-1"></a>
 
-## :camera: Interface
+## :pushpin: API
+
+- **POST** `/add` - accepts a search phrase and a region, registers them in the system. Returns the id of this pair.
+
+  _Example:_
+
+    - Send:
+      ```json
+      {
+      "query": "book",
+      "region": "moskva"
+      }
+      ```
+
+    - Get:
+      ```json
+      {
+      "id": 8
+      }
+      ```
+
+- **GET** `/stat` - accepts as input the id of the bundle search phrase + region and the interval for which you want to
+  output counters. Returns counters and their corresponding timestamps.
+
+  _Example:_
+
+    - Send: GET `http://127.0.0.1:8000/stat?avito_query_id=6&start=2022-08-12T00:00:00&end=2022-08-15T00:00:00`
+
+    - Get:
+      ```json
+      [{
+      "timestamp": "2022-08-12T11:05:00",
+      "value": "1257"
+      },
+      {
+      "timestamp": "2022-08-12T11:05:10",
+      "value": "1257"
+      },
+      {
+      "timestamp": "2022-08-12T11:05:20",
+      "value": "1257"
+      },
+      {
+      "timestamp": "2022-08-13T15:02:43",
+      "value": "1264"
+      }]
+      ```
 
 <a id="chapter-2"></a>
 
@@ -63,7 +109,7 @@ Logs saving to the `./logs.log` file.
 2022-08-12T11:04:32.491789+0300 ERROR Error in working with the database
 ```
 
-### :coffee: Tests
+### :coffee: Tests ![coverate](https://img.shields.io/badge/coverage-81%25-green)
 
 Run all tests:
 
