@@ -1,10 +1,14 @@
 """
 Main application file
 """
+import os
+import sys
 import threading
 
 import uvicorn
 from loguru import logger
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from tracker.db import Session
 from tracker.services.periodic_parser import periodic_parser
