@@ -41,6 +41,4 @@
     python3 src/tracker/main.py
     ```
 
-## :arrow_left: [Back to technical documentation](./README.md)
-
 ## :arrow_left: [Back to README](../README.md)
