@@ -78,3 +78,11 @@ def add_avito_query_values(session):
     ).dict()))
 
     session.commit()
+
+
+@pytest.fixture
+def add_real_avito_queries(session):
+    avito_query_data = AvitoQueryCreate(query=f'book', region='moskva')
+    avito_query_object = models.AvitoQuery(**avito_query_data.dict())
+    session.add(avito_query_object)
+    session.commit()

@@ -6,6 +6,7 @@ import threading
 import uvicorn
 from loguru import logger
 
+from tracker.db import Session
 from tracker.services.periodic_parser import periodic_parser
 from tracker.settings import settings
 
@@ -15,7 +16,7 @@ if __name__ == "__main__":
                level='ERROR')
 
     periodic_parser_thread = threading.Thread(target=periodic_parser,
-                                              args=(settings.REQUESTS_PERIOD,),
+                                              args=(Session, settings.REQUESTS_PERIOD,),
                                               name='periodic_parser_thread',
                                               daemon=True)
     periodic_parser_thread.start()
