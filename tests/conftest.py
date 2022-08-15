@@ -11,6 +11,8 @@ from tracker.db import get_session
 from tracker.models import Base
 from tracker.schemas import AvitoQueryValueCreate, AvitoQueryCreate
 
+PAGES_CONTENT_DIR = 'tests/pages_content'  # Path to folder with pages content for tests
+
 SQLALCHEMY_DATABASE_URL = "sqlite:///tests/db.sqlite3"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -31,7 +33,6 @@ def session():
 
 @pytest.fixture
 def client(session):
-    # Dependency override
     def override_get_session():
         try:
             yield session
